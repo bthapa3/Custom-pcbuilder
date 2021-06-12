@@ -8,7 +8,10 @@ import Parts from './components/parts'
 import Login from './Screens/Login'
 import Signup from './Screens/Signup'
 import Home from './Screens/Home'
+import Buildlist from './Screens/Buildlist';
+
 import  AsyncStorage  from '@react-native-async-storage/async-storage';
+
 //should be using this for future versions 
 //but this doesnot work with expo cli.
 //import  AsyncStorage  from '@react-native-community/async-storage';
@@ -26,7 +29,7 @@ const home = ({ navigation }) => {
     AsyncStorage.removeItem("token").then(()=>{
       navigation.replace("Login");
     })
-    console.log("token after logout" +await AsyncStorage.getItem('token'));
+    console.log("token after logout" + await AsyncStorage.getItem('token'));
     
   }
 
@@ -84,7 +87,7 @@ const login = ({ navigation })=>{
     
   )
 }
-  const signUp = ({navigation})=>{
+  const signup = ({navigation})=>{
     return (
       <View>      
         <Signup style={styles.pages}/>
@@ -101,6 +104,31 @@ const login = ({ navigation })=>{
     </View>
     )
   }
+  const buildlist=({navigation})=>{
+
+    const logout =async (navigation)=>{
+      AsyncStorage.removeItem("token").then(()=>{
+        navigation.replace("Login");
+      })
+      console.log("token after logout" + await AsyncStorage.getItem('token'));
+      
+    }
+    return(
+      <View>
+        <TouchableOpacity style={styles.navButtons}>
+          <Button
+            title="Logout"
+            onPress={() =>logout(navigation)}
+          />
+        </TouchableOpacity> 
+        <Buildlist style={styles.pages} />
+       
+
+      </View>
+
+    )
+
+  }
   /* <Button
       style={styles.navButtons} 
       title="Home"
@@ -115,19 +143,21 @@ export default function App() {
       <Stack.Navigator>
         
         
-        
         <Stack.Screen 
         name= "Login"
-        component={login}/>
+        component={Login}/>
         
         <Stack.Screen
         name="Signup"
-        component = {signUp}/>
+        component = {Signup}/>
 
+        <Stack.Screen
+        name="Buildlist"
+        component={Buildlist}/>
 
         <Stack.Screen 
         name= "Home"
-        component={home}/>
+        component={Home}/>
 
         
 

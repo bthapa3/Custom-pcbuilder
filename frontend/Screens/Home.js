@@ -3,15 +3,23 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View,ScrollView, Button } from 'react-native';
 import Parts from '../components/parts'
 import  AsyncStorage  from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 //import { AsyncStorage } from 'react-native';
 //import { MMKV } from 'react-native-mmkv';
 
-function Home(props) {
+const Home=props=>   {
+  console.log("p"+JSON.stringify(props));
  // const MMKV = new MMKVStorage.Loader().initialize();
+  //const navigation = useNavigation();
+  const navigation = useNavigation();
   const [email,setEmail] = useState("loading")
   const [cost,setCost] = useState(0);
+  //const buildname= AsyncStorage.getItem('buildname');
+  //var buildname=await AsyncStorage.getItem('buildname');
   const Boiler = async ()=>{
     const token = await AsyncStorage.getItem('token');
+    
+    //console.log("buildname"+ buildname);
     fetch('http://a0aacac6c41a.ngrok.io/',{
       headers:new Headers({
         Authorization:"Bearer "+token
@@ -34,6 +42,7 @@ function Home(props) {
     const RGBLightsprice= await AsyncStorage.getItem('RGB Lights');
     const SSDprice= await AsyncStorage.getItem('Solid State Drive');
     const HDDprice= await AsyncStorage.getItem('Hard Disk Drive');
+    
   }
   
   useEffect(()=>{
@@ -50,7 +59,7 @@ function Home(props) {
             </View>
             
             <View style={styles.homePageWrapper}>
-                <Text style={styles.heading}>Choose your PC build parts below:</Text>
+                <Text style={styles.heading}>Choose PC parts for build:{} </Text>
                 <ScrollView >
                    
                     <Parts text={'CPU'}/>
@@ -69,12 +78,12 @@ function Home(props) {
 
                 
             </View>
-            <Text> Total Cost  {cost}</Text>
+            <Text> Total Cost for is  {cost}</Text>
         </View>
     );
 }
 
-export default Home;
+
 
 const styles = StyleSheet.create({
     container: {
@@ -96,3 +105,5 @@ const styles = StyleSheet.create({
       padding:0
     }
   });
+
+  export default Home;

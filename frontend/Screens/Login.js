@@ -34,7 +34,7 @@ import { set } from 'react-native-reanimated';
 const Login=(props)=> {
 
    
-    const navigation = useNavigation();
+    //const navigation = useNavigation();
     const [email, getEmail] = useState('');
     const [errormsg, setErrormsg] = useState("");
     const [password, getPassword] = useState('')
@@ -92,7 +92,7 @@ const Login=(props)=> {
                                     //MMKV.set( data.token,'token')
                                     if(data.token!=null){
                                         //console.log( "token" +  MMKV.getString('token'));
-                                        navigation.replace('Home', { screen: 'Home' });
+                                        props.navigation.replace('Buildlist', { screen: 'BuildList' });
                                     }
                                     else{
                                         setErrormsg('Your credentials are incorrect! Please retry.');
